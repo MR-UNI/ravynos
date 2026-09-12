@@ -1,7 +1,7 @@
 SUBDIR = AppleAPIC IOACPIFamily IOPCIFamily IOStorageFamily IOATAFamily \
 	 AppleIntelPIIXATA msdosfs hfs AppleFileSystemDriver RavynAHCIPort \
 	 IOGraphics corecrypto pthread IOHIDFamily ApplePS2Controller \
-         AppleI386PCI #RavynXHCIPort IOUSBFamily
+         AppleI386PCI RavynVirtIOGPU #RavynXHCIPort IOUSBFamily
 
 all: kernelcache
 .for target_dir in ${RAVYN_SDKROOT}/System/Library/Extensions \
@@ -35,7 +35,8 @@ kernelcache: ${SUBDIR}
 	${EXTENSIONS}/hfs/hfs_encodings/hfs_encodings.kext \
 	${EXTENSIONS}/hfs/hfs.kext \
 	${EXTENSIONS}/IOGraphics/IOGOPFramebuffer.kext \
-	${EXTENSIONS}/IOHIDFamily/IOHIDFamily.kext
+	${EXTENSIONS}/IOHIDFamily/IOHIDFamily.kext \
+	${EXTENSIONS}/RavynVirtIOGPU/RavynVirtIOGPU.kext
 	chmod 0644 ${.TARGET}.tmp
 	${LIPO} -create -output ${.OBJDIR}/${.TARGET} \
 	  -arch x86_64 ${.OBJDIR}/${.TARGET}.tmp
